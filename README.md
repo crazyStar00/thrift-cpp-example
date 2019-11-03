@@ -1,9 +1,33 @@
 # Use_Thrift
 
+这是一个使用thrift的c++的demo
 
+## 1. 安装thrift
+从 [这里]下载thrift的安装包。如果你使用的是mac电脑，可以执行下面的命令快速安装。
+```bash
+brew install thrift
+```
 
-运行  thrift2cpp.sh  student.thrift  会生成gen-cpp 目录以及目录中的文件
+## 2. 使用thrift生成student.thrif的c++目录
 
-之后将 用my-gen-cpp 中的文件将 gen-cpp 中的文件替换 （ 其实也是在thrift生成的文件服务端中我做了一些操作，因为thrift生成一些服务端的模版，但是客户端得用户自己编写）
+```markdown
+thrift -r --gen cpp student.thrift
+```
 
-之后用 make.sh 进行编译 生成可执行文件到bin目录中
+## 3. 生成c++服务端
+```markdown
+g++ -v -std=c++11 -lthrift -g -Wall -L/usr/local/opt/boost@1.60/lib -I /usr/local/opt/boost@1.60/include/ -I ./ -I /usr/local/include/thrift -I /usr/include/thrift/ -I /usr/include/thrift/fb303/ -I /usr/include/libxml2/ gen-cpp/serv.cpp  gen-cpp/serv_server.skeleton.cpp gen-cpp/student_constants.cpp  gen-cpp/student_types.cpp  -o bin/server
+```
+## 4. 生成c++客户端
+
+```markdown
+g++ -v -std=c++11 -lthrift -g -Wall -L/usr/local/opt/boost@1.60/lib -I /usr/local/opt/boost@1.60/include/ -I ./ -I /usr/local/include/thrift -I /usr/include/thrift/ -I /usr/include/thrift/fb303/ -I /usr/include/libxml2/ gen-cpp/serv.cpp  gen-cpp/student_constants.cpp  gen-cpp/student_types.cpp client/client.cpp  -o bin/client  
+```
+## 5. 启动c++服务端
+bin/server
+
+## 6. 执行c++客户端
+bin/client
+
+## 7. 验证
+在服务端的窗口中应该打印出了`put`
