@@ -1,4 +1,4 @@
-# Use_Thrift
+# thrift-cpp-example
 
 这是一个使用thrift的c++的demo
 
